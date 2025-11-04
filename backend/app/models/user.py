@@ -31,6 +31,8 @@ class User(Base):
     # Settings
     default_timezone = Column(String(50), default="Europe/Budapest")
     auto_approve_enabled = Column(Boolean, default=False)
+    approval_preview_mode = Column(String(20), default="modal")  # modal, inline, none
+    link_handling_mode = Column(String(30), default="both")  # render_in_email, add_to_event, both
     
     # Metadata
     is_active = Column(Boolean, default=True)

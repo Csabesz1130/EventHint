@@ -41,3 +41,44 @@ class MessageUpload(BaseModel):
     content_type: str
     filename: Optional[str] = None
 
+
+class EventBrief(BaseModel):
+    """Brief event info for message listing."""
+    id: UUID
+    type: str
+    title: str
+    start: datetime
+    end: Optional[datetime] = None
+    allday: bool
+    timezone: str
+    location: Optional[str] = None
+    online_url: Optional[str] = None
+    notes: Optional[str] = None
+    status: str
+    confidence: float
+    labels: List[str] = []
+
+    class Config:
+        from_attributes = True
+
+
+class MessageWithEvents(BaseModel):
+    """Message with its extracted events."""
+    id: UUID
+    user_id: UUID
+    provider: str
+    external_id: Optional[str] = None
+    subject: Optional[str] = None
+    sender_email: Optional[str] = None
+    sender_name: Optional[str] = None
+    received_at: Optional[datetime] = None
+    body_text: Optional[str] = None
+    body_html: Optional[str] = None
+    attachments: List[Dict[str, Any]] = []
+    processed: bool
+    processed_at: Optional[datetime] = None
+    created_at: datetime
+    events: List[EventBrief] = []
+
+    class Config:
+        from_attributes = True

@@ -77,3 +77,15 @@ export function useUploadFile() {
   })
 }
 
+export function useProcessUrl() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (url: string) => api.processUrl(url),
+    onSuccess: () => {
+      // Invalidate events to show newly extracted ones
+      queryClient.invalidateQueries({ queryKey: ['events'] })
+    },
+  })
+}
+

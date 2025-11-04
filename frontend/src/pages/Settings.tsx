@@ -64,12 +64,141 @@ export default function Settings() {
               </p>
             </div>
 
-            {/* Coming soon */}
+            {/* Approval Preview Mode */}
             <div className="pt-6 border-t border-gray-200">
-              <p className="text-sm text-gray-500">
-                More settings coming soon: notification preferences, calendar selection,
-                custom extraction rules, and more.
+              <h2 className="text-lg font-semibold text-gray-900 mb-3">
+                Event Approval Preview
+              </h2>
+              <p className="text-sm text-gray-600 mb-3">
+                Choose how you want to preview events before approving them
               </p>
+              <div className="space-y-2">
+                <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="approvalPreview"
+                    value="modal"
+                    checked={approvalPreviewMode === 'modal'}
+                    onChange={(e) => setApprovalPreviewMode(e.target.value as any)}
+                    className="w-4 h-4 text-blue-600"
+                  />
+                  <div>
+                    <div className="font-medium text-gray-900">Modal Preview</div>
+                    <div className="text-sm text-gray-500">
+                      Show event details in a popup before confirming
+                    </div>
+                  </div>
+                </label>
+                <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="approvalPreview"
+                    value="inline"
+                    checked={approvalPreviewMode === 'inline'}
+                    onChange={(e) => setApprovalPreviewMode(e.target.value as any)}
+                    className="w-4 h-4 text-blue-600"
+                  />
+                  <div>
+                    <div className="font-medium text-gray-900">Inline Preview</div>
+                    <div className="text-sm text-gray-500">
+                      Expand event card to show full details
+                    </div>
+                  </div>
+                </label>
+                <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="approvalPreview"
+                    value="none"
+                    checked={approvalPreviewMode === 'none'}
+                    onChange={(e) => setApprovalPreviewMode(e.target.value as any)}
+                    className="w-4 h-4 text-blue-600"
+                  />
+                  <div>
+                    <div className="font-medium text-gray-900">No Preview</div>
+                    <div className="text-sm text-gray-500">
+                      Approve immediately without preview
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Link Handling Mode */}
+            <div className="pt-6 border-t border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900 mb-3">
+                Link Handling
+              </h2>
+              <p className="text-sm text-gray-600 mb-3">
+                Choose how links should be handled in emails and events
+              </p>
+              <div className="space-y-2">
+                <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="linkHandling"
+                    value="render_in_email"
+                    checked={linkHandlingMode === 'render_in_email'}
+                    onChange={(e) => setLinkHandlingMode(e.target.value as any)}
+                    className="w-4 h-4 text-blue-600"
+                  />
+                  <div>
+                    <div className="font-medium text-gray-900">Render in Email Only</div>
+                    <div className="text-sm text-gray-500">
+                      Show clickable links in email display
+                    </div>
+                  </div>
+                </label>
+                <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="linkHandling"
+                    value="add_to_event"
+                    checked={linkHandlingMode === 'add_to_event'}
+                    onChange={(e) => setLinkHandlingMode(e.target.value as any)}
+                    className="w-4 h-4 text-blue-600"
+                  />
+                  <div>
+                    <div className="font-medium text-gray-900">Add to Event</div>
+                    <div className="text-sm text-gray-500">
+                      Extract links and add them to event details
+                    </div>
+                  </div>
+                </label>
+                <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="linkHandling"
+                    value="both"
+                    checked={linkHandlingMode === 'both'}
+                    onChange={(e) => setLinkHandlingMode(e.target.value as any)}
+                    className="w-4 h-4 text-blue-600"
+                  />
+                  <div>
+                    <div className="font-medium text-gray-900">Both</div>
+                    <div className="text-sm text-gray-500">
+                      Render in email and add to event details
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Save button */}
+            <div className="pt-6 border-t border-gray-200">
+              <button
+                onClick={handleSave}
+                disabled={isSaving}
+                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <Save className="w-5 h-5" />
+                {isSaving ? 'Saving...' : 'Save Settings'}
+              </button>
+              {message && (
+                <p className={`mt-3 text-sm ${message.includes('success') ? 'text-green-600' : 'text-red-600'}`}>
+                  {message}
+                </p>
+              )}
             </div>
           </div>
         </div>

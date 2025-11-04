@@ -56,6 +56,37 @@ def process_message_task(self, message_id: str):
         
         logger.info(f"Processing message {message_id}")
         
+        # Handle website scraping if provider is "website"
+        if message.provider == "website":
+            from app.services.web.scraper import scrape_url
+            
+            url = message.body_text
+            scrape_result = scrape_url(url)
+            
+            if not scrape_result.get("success"):
+                error_msg = scrape_result.get("error", "Unknown scraping error")
+                logger.error(f"Failed to scrape URL {url}: {error_msg}")
+                message.processing_error = f"Scraping failed: {error_msg}"
+                message.processed = True
+                message.processed_at = datetime.utcnow()
+                db.commit()
+                return
+            
+            # Update message with scraped content
+            message.subject = scrape_result.get("title", message.subject)
+            message.body_text = scrape_result.get("text", "")
+            message.body_html = scrape_result.get("html", "")
+            
+            # Store links in attachments for reference
+            links = scrape_result.get("links", [])
+            if links:
+                message.attachments = [{
+                    "type": "links",
+                    "links": links[:50],  # Limit to first 50 links
+                }]
+            
+            logger.info(f"Successfully scraped URL {url}: {len(message.body_text)} chars")
+        
         # 1. OCR on attachments (if any)
         from app.services.ocr import extract_text_smart
         import os
@@ -102,7 +133,7 @@ def process_message_task(self, message_id: str):
             full_text,
             timezone=user.default_timezone if user else "Europe/Budapest",
             context={
-                "source": "email" if message.provider == "gmail" else "upload",
+                "source": message.provider,
                 "sender": message.sender_email,
             }
         )

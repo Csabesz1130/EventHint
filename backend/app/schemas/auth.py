@@ -32,6 +32,8 @@ class UserUpdate(BaseModel):
     neptun_id: Optional[str] = None
     default_timezone: Optional[str] = None
     auto_approve_enabled: Optional[bool] = None
+    approval_preview_mode: Optional[str] = None
+    link_handling_mode: Optional[str] = None
 
 
 class UserResponse(BaseModel):
@@ -43,6 +45,8 @@ class UserResponse(BaseModel):
     neptun_id: Optional[str] = None
     default_timezone: str
     auto_approve_enabled: bool
+    approval_preview_mode: Optional[str] = "modal"
+    link_handling_mode: Optional[str] = "both"
     is_active: bool
     created_at: datetime
 
