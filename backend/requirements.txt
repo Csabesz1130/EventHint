@@ -1,0 +1,73 @@
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+pydantic[email]==2.5.0
+pydantic-settings==2.1.0
+
+# Database
+sqlalchemy==2.0.23
+alembic==1.13.0
+psycopg2-binary==2.9.9
+pgvector==0.2.4
+
+# Redis & Celery
+redis==5.0.1
+celery==5.3.4
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+cryptography==41.0.7
+
+# Google APIs
+google-auth==2.25.2
+google-auth-oauthlib==1.2.0
+google-auth-httplib2==0.2.0
+google-api-python-client==2.110.0
+
+# OCR
+pytesseract==0.3.10
+Pillow==10.1.0
+pdf2image==1.16.3
+google-cloud-vision==3.5.0
+
+# PDF Processing
+PyMuPDF==1.23.8
+pdfplumber==0.10.3
+camelot-py[cv]==0.11.0
+
+# Date/Time Parsing
+python-dateutil==2.8.2
+pytz==2023.3
+dateparser==1.2.0
+
+# LLM & AI
+openai==1.6.1
+tiktoken==0.5.2
+
+# HTTP
+httpx==0.25.2
+requests==2.31.0
+
+# Utilities
+python-magic==0.4.27
+beautifulsoup4==4.12.2
+lxml==4.9.4
+markdownify==0.11.6
+
+# Validation
+email-validator==2.1.0
+phonenumbers==8.13.26
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+httpx==0.25.2
+
+# Development
+black==23.12.0
+flake8==6.1.0
+mypy==1.7.1
+
